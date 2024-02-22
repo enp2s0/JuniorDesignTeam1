@@ -20,11 +20,17 @@ String comm_readcmd()
 void comm_init()
 {
         Serial.println("Initializing communication bus...");
-        lcd_statusmsg("Waiting for", "serial bus...");
+        lcd_statusmsg("Initializing...", "Serial Comm Bus");
 
         comm.begin(COMM_BAUD_RATE);
+        delay(500);
         comm.flush();
+        delay(500);
+}
 
+void comm_link_establish()
+{
+        lcd_statusmsg("Waiting for", "serial link...");
         comm_writecmd("/SYN\n");
         while(1)
         {

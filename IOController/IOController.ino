@@ -9,11 +9,12 @@ void setup()
 
 	lcd_init();
 	comm_init();
+	comm_link_establish();
 
-	lcd_statusmsg("System ready!", "");
+	lcd_statusmsg("Initializing...", "Complete!");
 	Serial.println("Ready.");
 }
 
-void loop() {
-	
+void loop()
+{	
 }
