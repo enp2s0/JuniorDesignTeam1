@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:uno",
+    "sketch": "IOController/IOController.ino",
+    "port": "/dev/ttyACM1"
+}
