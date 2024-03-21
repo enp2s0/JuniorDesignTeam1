@@ -4,5 +4,6 @@
 
 #define COMM_BAUD_RATE          9600
 #define COMM_BUFFER_LENGTH      128
+#define COMM_LINK_TIMEOUT       2000
 #define PIN_COMM_TX             3
 #define PIN_COMM_RX             2

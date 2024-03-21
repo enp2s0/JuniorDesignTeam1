@@ -20,10 +20,11 @@ void I2C_LCD::send_data(unsigned char data)
 	
 	dataNibbleLower = (data << 4) & 0xf0;
 	dataNibbleUpper = data & 0xf0;
-	dataBufferI2C[0] = dataNibbleUpper | (LCDDataByteOn & _LCDBackLight);
+	dataBufferI2C[0] = dataNibbleUpper | (LCDDataByteOn  & _LCDBackLight);
 	dataBufferI2C[1] = dataNibbleUpper | (LCDDataByteOff & _LCDBackLight);
-	dataBufferI2C[2] = dataNibbleLower | (LCDDataByteOn & _LCDBackLight);
+	dataBufferI2C[2] = dataNibbleLower | (LCDDataByteOn  & _LCDBackLight);
 	dataBufferI2C[3] = dataNibbleLower | (LCDDataByteOff &  _LCDBackLight);
+	dataBufferI2C[4] = d
 
 	wire->beginTransmission(_LCDSlaveAddresI2C);
 	wire->write(dataBufferI2C, 4) ;

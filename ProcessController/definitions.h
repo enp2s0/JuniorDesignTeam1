@@ -3,8 +3,6 @@
 #define PIN_STEPPER_1_PUL       11
 #define PIN_STEPPER_2_DIR       12
 #define PIN_STEPPER_2_PUL       13
-#define PIN_STEPPER_3_DIR       8
-#define PIN_STEPPER_3_PUL       9
 
 // Limit switch pins
 #define PIN_LIMIT_1             A0
@@ -33,9 +31,9 @@
 #define PANEL_GND               22
 
 // Device assignments
-#define TABLE_DIR               PIN_STEPPER_2_DIR
-#define TABLE_PUL               PIN_STEPPER_2_PUL
-#define PILL_DIR                PIN_STEPPER_3_DIR
-#define PILL_PUL                PIN_STEPPER_3_PUL
+#define TABLE_DIR               PIN_STEPPER_1_DIR
+#define TABLE_PUL               PIN_STEPPER_1_PUL
+#define PILL_DIR                PIN_STEPPER_2_DIR
+#define PILL_PUL                PIN_STEPPER_2_PUL
 #define BOTTLE_1                PIN_M_1_IN1
 #define BOTTLE_2                PIN_M_1_IN2
