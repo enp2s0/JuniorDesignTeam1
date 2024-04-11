@@ -61,7 +61,7 @@ void loop()
 
 	for(int i = 0; i < cmd_str.length(); i++)
 	{
-		auto cmd = cmd_str.charAt(i);
+		char cmd = cmd_str.charAt(i);
 		Serial.print("> CMD #"); Serial.print(i); Serial.print(": "); Serial.println(cmd);
 		do_command(cmd);
 	}
