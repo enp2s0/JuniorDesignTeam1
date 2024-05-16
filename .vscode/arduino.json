@@ -1,6 +1,6 @@
 {
     "board": "arduino:avr:mega",
-    "sketch": "ProcessController/ProcessController.ino",
+    "sketch": "AsyncProcessController/AsyncProcessController.ino",
     "port": "/dev/ttyUSB0",
     "configuration": "cpu=atmega2560"
 }
