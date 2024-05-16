@@ -5,10 +5,7 @@
 #define PIN_STEPPER_2_PUL       13
 
 // Limit switch pins
-#define PIN_LIMIT_1             A0
-#define PIN_LIMIT_2             A1
-#define PIN_LIMIT_3             A2
-#define PIN_LIMIT_4             A3
+#define PIN_TABLE_LIMIT         6
 
 // Optical sensors
 #define PIN_OPTICAL             A4
@@ -18,6 +15,10 @@
 #define PIN_M_1_IN2             3
 #define PIN_M_2_IN1             2
 #define PIN_M_2_IN2             5
+
+// Servos
+#define PIN_SERVO_1             -1
+#define PIN_SERVO_2             -1
 
 // LEDs
 #define LED_GREEN               14
@@ -35,5 +36,5 @@
 #define TABLE_PUL               PIN_STEPPER_1_PUL
 #define PILL_DIR                PIN_STEPPER_2_DIR
 #define PILL_PUL                PIN_STEPPER_2_PUL
-#define BOTTLE_1                PIN_M_1_IN1
-#define BOTTLE_2                PIN_M_1_IN2
+#define BOTTLE_1                PIN_SERVO_1
+#define BOTTLE_2                PIN_SERVO_2

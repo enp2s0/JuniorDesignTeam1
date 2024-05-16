@@ -17,8 +17,12 @@ void table_init()
 
         pinMode(TABLE_DIR, OUTPUT);
         pinMode(TABLE_PUL, OUTPUT);
+        pinMode(PIN_TABLE_LIMIT, INPUT_PULLUP);
 
         digitalWrite(TABLE_DIR, HIGH);
+
+        Serial.println("Homing rotary table...");
+        table_home();
 }
 
 void table_rotate(int cnt)
@@ -69,4 +73,10 @@ void table_nudge(int cnt)
 
 	int end_time = millis();
 	Serial.print("Took "); Serial.print(end_time - start_time); Serial.println("ms.");
+}
+
+void table_home()
+{
+        while(digitalRead(PIN_TABLE_LIMIT))
+                table_nudge(1);
 }

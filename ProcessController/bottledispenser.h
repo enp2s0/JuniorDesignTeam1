@@ -1,3 +1,5 @@
+#include <Servo.h>
+
 #include "definitions.h"
 
 #define B_EXTEND_DELAY          1500

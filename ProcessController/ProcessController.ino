@@ -48,7 +48,6 @@ void setup()
 	ready();
 }
 
-
 void loop()
 {
 	while(!Serial.available());;
