@@ -46,6 +46,7 @@ void set_pin_states()
         pinMode(PIN_LED_3, OUTPUT);
 
         digitalWrite(PIN_TABLE_DIR, HIGH);
+        digitalWrite(PIN_PILL_DIR, HIGH);
         digitalWrite(PIN_LED_1, HIGH);
         digitalWrite(PIN_LED_2, HIGH);
         digitalWrite(PIN_LED_3, HIGH);
