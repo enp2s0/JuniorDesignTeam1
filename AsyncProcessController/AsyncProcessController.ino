@@ -84,6 +84,38 @@ void home_table()
                 digitalWrite(PIN_TABLE_PUL, LOW);  
                 delayMicroseconds(TABLE_HOME_DELAY);
         }
+
+        configure_dispenser(true);
+}
+
+void configure_dispenser(int side)
+{
+        Serial.println("Homing left bottle dispenser...");
+        while(digitalRead(PIN_BOTTLE_LIMIT_1))
+                bottle1.write(BOTTLE_CCW_US);
+        bottle1.write(1500);
+
+        Serial.println("Homing right bottle dispenser...");
+        while(digitalRead(PIN_BOTTLE_LIMIT_2))
+                bottle2.write(BOTTLE_CW_US);
+        bottle2.write(1500);
+
+        switch(side)
+        {
+                case false:
+                        Serial.println("Configuring bottle dispener for bottle 1...");
+                        bottle2.write(BOTTLE_CCW_US);
+                        delay(BOTTLE_TIME_US_2 / 1000);
+                        bottle2.write(1500);
+                break;
+
+                case true:
+                        Serial.println("Configuring bottle dispener for bottle 2...");
+                        bottle1.write(BOTTLE_CW_US);
+                        delay(BOTTLE_TIME_US_1 / 1000);
+                        bottle1.write(1500);
+                break;
+        }
 }
 
 void clear_leds()
@@ -129,22 +161,31 @@ void do_state_run(uint32_t time_cur)
         if(slots_running[SLOT_BOTTLE] == true)
         {       
                 // pick which side to dispense bottles from
-                bool side = (bottles_remaining > 6);
+                bool side = (bottles_remaining <= N_BOTTLES_SIDE);
 
                 // select the appropriate servo and limit switch configuration for the chosen side
                 auto servo = side ? &bottle1 : &bottle2;
                 auto limit_pin = side ? PIN_BOTTLE_LIMIT_1 : PIN_BOTTLE_LIMIT_2;
                 auto extend_us = side ? BOTTLE_CW_US : BOTTLE_CCW_US;
                 auto retract_us = side ? BOTTLE_CCW_US : BOTTLE_CW_US;
+                auto delay_time = side ? BOTTLE_TIME_US_1 : BOTTLE_TIME_US_2;
 
                 if(state_first_iter)
                 {
+                        if(bottles_remaining == N_BOTTLES_SIDE)
+                        {
+                                // configure_dispenser() is blocking. Reset the time counter to the current time
+                                // so that the rest of the code accurately knows where it is.
+                                configure_dispenser(false);
+                                time_cur = micros();
+                        }
+
                         servo->write(extend_us);
                         bottle_extending = true;
                         time_bottle_pause = time_cur;
                         state_first_iter = false;
                 }
-                if(bottle_extending && time_cur - time_bottle_pause > BOTTLE_TIME_US)
+                if(bottle_extending && time_cur - time_bottle_pause > delay_time)
                 {
                         servo->write(retract_us);
 
@@ -173,7 +214,7 @@ void do_state_run(uint32_t time_cur)
                         }
                         if(pill_state == PILL_STATE_FILLING && sr_pills > 0 && time_cur - time_pill_step > PILL_STEP_RATE)
                         {
-                                digitalWrite(PIN_PILL_PUL, !pill_pul_state);
+                                fast_toggle(PIN_PILL_PUL);
                                 pill_pul_state = !pill_pul_state;
                                 time_pill_step = time_cur;
 
@@ -214,7 +255,8 @@ void do_state_moving(uint32_t time_cur)
         if(sr_table > 0 && (time_cur - time_table_step) > TABLE_MOVE_DELAY)
         {
                 // we are due for a step of the table motor
-                digitalWrite(PIN_TABLE_PUL, !table_pul_state);
+                //digitalWrite(PIN_TABLE_PUL, !table_pul_state);
+                fast_toggle(PIN_TABLE_PUL);
                 table_pul_state = !table_pul_state;
                 time_table_step = time_cur;
                 if(!table_pul_state)
@@ -251,6 +293,7 @@ void setup()
         init_state_machine();
         init_servos();
 
+        Serial.println("Ready for homing!");
         while(digitalRead(PIN_SWITCH_2));;
 
         clear_leds();

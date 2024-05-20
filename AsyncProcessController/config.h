@@ -31,11 +31,13 @@
 #define PILL_STATE_FILLING              1
 #define PILL_ONE_STEPS                  (PILL_STEPS_PER_ROT / PILL_SLOTS)
 
-#define BOTTLE_TIME_US                  1000000
+#define BOTTLE_TIME_US_2                1300000
+#define BOTTLE_TIME_US_1                1350000
 #define BOTTLE_CW_US                    600
 #define BOTTLE_CCW_US                   2400
 
 #define N_BOTTLES                       12
+#define N_BOTTLES_SIDE                  6
 #define N_PILLS                         30
 
 #define SLOT_BOTTLE                     0
