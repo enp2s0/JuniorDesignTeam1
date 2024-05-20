@@ -231,8 +231,8 @@ void do_state_clearing(uint32_t time_cur)
 {
         if(!digitalRead(PIN_BOTTLE_LIMIT_1) || !digitalRead(PIN_BOTTLE_LIMIT_2))
         {
-                bottle1.write(600);
-                bottle2.write(600);
+                bottle1.write(BOTTLE_CW_US);
+                bottle2.write(BOTTLE_CCW_US);
         }
         else
         {
